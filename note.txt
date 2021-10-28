@@ -1,0 +1,66 @@
+php artisan serve pour voir le port du serveur
+
+php artisan make:migration create_etudiants_table pour creer la table etudiant
+
+
+=============================================================================
+Pour la migration
+
+class CreateEtudiantsTable extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('etudiants', function (Blueprint $table) {
+            $table->id();
+            $table->string("nom")->nullable();
+            $table->string("prenom")->nullable();
+            $table->foreignId("class_id")->constrained("classes");
+            $table->timestamps();
+        });
+
+        Schema::enableForeignKeyConstraints();
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::table("etudiants", function(Blueprint $table){
+            $table->dropConstrainedForeignId("classe_id");
+        });
+
+        Schema::dropIfExists('etudiants');
+    }
+}
+
+saisir php artisan migrate dans la console pour effectuer la migration
+
+
+ php artisan make:seeder ClassTableSeeder pour creer une classe
+
+
+
+<form>
+  <div class="mb-3">
+    <label for="exampleInputEmail1" class="form-label">Email address</label>
+    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+    <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+  </div>
+  <div class="mb-3">
+    <label for="exampleInputPassword1" class="form-label">Password</label>
+    <input type="password" class="form-control" id="exampleInputPassword1">
+  </div>
+  <div class="mb-3 form-check">
+    <input type="checkbox" class="form-check-input" id="exampleCheck1">
+    <label class="form-check-label" for="exampleCheck1">Check me out</label>
+  </div>
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
